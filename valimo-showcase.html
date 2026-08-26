@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="nl" data-theme="dark" data-accent="green" data-valimo-theme="valimo-default">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Valimo CSS – complete showcase</title>
+  <link rel="stylesheet" href="valimo.css">
+</head>
+
+<body>
+  <main class="max-w-content mx-auto p-6">
+    <header class="panel p-6 mb-6">
+      <div class="panel-header">
+        <div>
+          <span class="signal accent">Valimo v4</span>
+          <h1 class="text-2xl mt-3">Complete CSS-showcase</h1>
+          <p class="text-muted mb-0">Alle componenten, thema’s, accentvarianten en utility-klassen uit het bijgewerkte
+            stylesheet op één pagina.</p>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <button class="btn primary" type="button" onclick="setTheme('dark')">Donker</button>
+          <button class="btn secondary" type="button" onclick="setTheme('light')">Licht</button>
+        </div>
+      </div>
+      <div class="flex flex-wrap gap-2">
+        <button class="btn ghost" type="button" onclick="setAccent('green')">Groen</button>
+        <button class="btn ghost" type="button" onclick="setAccent('blue')">Blauw</button>
+        <button class="btn ghost" type="button" onclick="setAccent('red')">Rood</button>
+        <button class="btn ghost" type="button" onclick="setAccent('gold')">Goud</button>
+        <button class="btn ghost" type="button" onclick="setAccent('orange')">Oranje</button>
+        <button class="btn ghost" type="button" onclick="setAccent('purple')">Paars</button>
+        <button class="btn ghost" type="button" onclick="setAccent('green-vivid')">Groen vivid</button>
+      </div>
+    </header>
+
+    <nav class="panel p-4 mb-6 flex flex-wrap gap-2">
+      <a class="nav-item active inline compact" href="#typografie">Typografie</a>
+      <a class="nav-item inline compact" href="#componenten">Componenten</a>
+      <a class="nav-item outline inline compact" href="#formulieren">Formulieren</a>
+      <a class="nav-item outline active inline compact" href="#utilities">Utilities</a>
+    </nav>
+
+    <section id="typografie" class="panel p-6 mb-6">
+      <div class="panel-header">
+        <h2 class="text-xl">Typografie en kleuren</h2><span class="badge accent">Core + Theme</span>
+      </div>
+      <h1>Kopniveau H1</h1>
+      <h2 class="mt-4">Kopniveau H2</h2>
+      <h3 class="mt-4">Kopniveau H3</h3>
+      <p>Dit is gewone bodytekst. Selecteer deze tekst om ook de aangepaste selectiekleur te bekijken.</p>
+      <p class="text-muted">Secundaire tekst met <code class="font-mono">.text-muted</code>.</p>
+      <p class="text-soft">Zachte tekst met <code class="font-mono">.text-soft</code>.</p>
+      <p class="accent">Accenttekst met <code class="font-mono">.accent</code>.</p>
+      <div class="accent-bg p-4 radius-1">Accent-achtergrond met contrasterende tekst.</div>
+      <div class="u-grid grid-cols-3 gap-3 mt-4">
+        <div class="surface-1 border p-4">Surface 1</div>
+        <div class="surface-2 border p-4">Surface 2</div>
+        <div class="surface-3 border p-4">Surface 3</div>
+        <div class="surface-4 border p-4">Surface 4</div>
+        <div class="border p-4">Normale border</div>
+        <div class="border-strong p-4">Sterke border</div>
+      </div>
+      <div class="mt-5">
+        <p class="text-xs">Extra klein — 12 px</p>
+        <p class="text-sm">Klein — 14 px</p>
+        <p class="text-base">Basis — 16 px</p>
+        <p class="text-lg">Groot — 20 px</p>
+        <p class="text-xl">Extra groot — 28 px</p>
+        <p class="text-2xl">2× extra groot — 40 px</p>
+        <p class="font-normal">Normaal gewicht</p>
+        <p class="font-medium">Medium gewicht</p>
+        <p class="font-semibold">Semibold gewicht</p>
+        <p class="font-bold">Bold gewicht</p>
+        <p class="font-heading">Heading-lettertype</p>
+        <p class="font-mono">Monospace-lettertype: const valimo = true;</p>
+        <p class="font-special">Speciaal lettertype: 'Fraunces'</p>
+        <p class="font-code">Consolas</p>
+        <p class="text-left">Links uitgelijnd</p>
+        <p class="text-center">Gecentreerd</p>
+        <p class="text-right">Rechts uitgelijnd</p>
+      </div>
+    </section>
+
+    <section id="componenten" class="panel p-6 mb-6">
+      <div class="panel-header">
+        <h2 class="text-xl">Knoppen</h2><span class="signal">Interactief</span>
+      </div>
+      <div class="flex flex-wrap gap-3">
+        <button class="btn" type="button">Standaard</button>
+        <button class="btn primary" type="button">Primary</button>
+        <button class="btn secondary" type="button">Secondary</button>
+        <button class="btn danger" type="button">Danger</button>
+        <button class="btn ghost" type="button">Ghost</button>
+        <button class="btn" type="button" disabled>Disabled</button>
+        <button class="icon-btn" type="button" aria-label="Favoriet">★</button>
+        <a class="btn-primary btn" href="#componenten">btn-primary alias</a>
+      </div>
+    </section>
+
+    <section class="mb-6">
+      <div class="stats-grid">
+        <article class="stat-card"><span class="text-muted text-sm">Bezoekers</span>
+          <div class="val">12.480</div>
+        </article>
+        <article class="stat-card"><span class="text-muted text-sm">Conversie</span>
+          <div class="val">8,4%</div>
+        </article>
+        <article class="stat-card"><span class="text-muted text-sm">Omzet</span>
+          <div class="val">€ 31K</div>
+        </article>
+        <article class="stat-card"><span class="text-muted text-sm">Uptime</span>
+          <div class="val">99,99%</div>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel p-6 mb-6">
+      <h2 class="text-xl mb-4">Alerts en statussen</h2>
+      <div class="flex flex-col gap-3">
+        <div class="alert">● Standaardmelding</div>
+        <div class="alert success">✓ Alles is succesvol opgeslagen.</div>
+        <div class="alert danger">✕ Er is iets misgegaan.</div>
+        <div class="alert warning">⚠ Controleer deze instelling.</div>
+        <div class="alert info">ⓘ Er is nieuwe informatie beschikbaar.</div>
+      </div>
+      <div class="flex flex-wrap gap-3 mt-4">
+        <span class="status-ok">status-ok</span>
+        <span class="status-success">status-success</span>
+        <span class="status-bad">status-bad</span>
+        <span class="status-danger">status-danger</span>
+      </div>
+    </section>
+
+    <section class="panel p-6 mb-6">
+      <h2 class="text-xl mb-4">Navigatie, badges en pills</h2>
+      <div class="flex flex-col gap-2 mb-5">
+        <a class="nav-item" href="#">Normaal item</a>
+        <a class="nav-item active" href="#">Actief item</a>
+        <a class="nav-item outline" href="#">Outline item</a>
+        <a class="nav-item outline active" href="#">Outline actief</a>
+        <a class="nav-item compact" href="#">Compact item</a>
+      </div>
+      <div class="flex flex-wrap gap-3">
+        <span class="signal">Signal</span>
+        <span class="signal accent">Signal accent</span>
+        <span class="badge">Badge</span>
+        <span class="badge accent">Badge accent</span>
+        <span class="stat-pill"><span class="stat-label">Projecten</span><span class="stat-value">24</span></span>
+      </div>
+    </section>
+
+    <section id="formulieren" class="panel p-6 mb-6">
+      <div class="panel-header">
+        <h2 class="text-xl">Formulieren</h2><span class="badge">Focus testen met Tab</span>
+      </div>
+      <form class="u-grid grid-cols-2 gap-4" onsubmit="event.preventDefault(); showToast()">
+        <div class="field-group">
+          <label for="naam">Naam</label>
+          <input id="naam" placeholder="Voor- en achternaam">
+          <p class="field-hint">Een korte ondersteunende hint.</p>
+        </div>
+        <div class="field-group">
+          <label for="email">E-mailadres</label>
+          <input id="email" type="email" value="naam@voorbeeld.nl">
+        </div>
+        <div class="field-group">
+          <label for="keuze">Selecteer een optie</label>
+          <select id="keuze">
+            <option>Optie één</option>
+            <option>Optie twee</option>
+            <option>Optie drie</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <span class="field-label">Custom .input</span>
+          <div class="input" tabindex="0">Element met de klasse .input</div>
+        </div>
+        <div class="field-group grid-cols-2">
+          <label for="bericht">Bericht</label>
+          <textarea id="bericht" rows="5">Voorbeeldtekst in een textarea.</textarea>
+        </div>
+        <div class="flex flex-wrap gap-3 items-end">
+          <button class="btn primary" type="submit">Toast tonen</button>
+          <button class="btn secondary" type="button" onclick="openModal()">Modal openen</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="panel p-6 mb-6">
+      <h2 class="text-xl mb-4">Tabel</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Onderdeel</th>
+            <th>Status</th>
+            <th>Waarde</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Componenten</td>
+            <td class="status-success">Gereed</td>
+            <td>18</td>
+          </tr>
+          <tr>
+            <td>Thema’s</td>
+            <td class="status-success">Gereed</td>
+            <td>2</td>
+          </tr>
+          <tr>
+            <td>Accenten</td>
+            <td class="status-success">Gereed</td>
+            <td>7</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="utilities" class="panel p-6 mb-6">
+      <div class="panel-header">
+        <h2 class="text-xl">Layout-utilities</h2><span class="signal accent">Flex + Grid</span>
+      </div>
+      <h3 class="mb-3">Flex-richting en uitlijning</h3>
+      <div class="flex flex-wrap gap-4 mb-5">
+        <div class="flex flex-col gap-2 border p-3"><span class="badge">flex-col</span><button
+            class="btn">A</button><button class="btn">B</button></div>
+        <div class="flex flex-row gap-2 items-center border p-3"><span class="badge">flex-row</span><button
+            class="btn">A</button><button class="btn">B</button></div>
+        <div class="flex flex-1 justify-between items-center border p-3"><span>justify-between</span><span
+            class="badge accent">Einde</span></div>
+      </div>
+      <h3 class="mb-3">Grid-kolommen</h3>
+      <div class="u-grid grid-cols-4 gap-3 mb-5">
+        <div class="surface-2 border p-3 text-center">1</div>
+        <div class="surface-2 border p-3 text-center">2</div>
+        <div class="surface-2 border p-3 text-center">3</div>
+        <div class="surface-2 border p-3 text-center">4</div>
+      </div>
+      <div class="u-grid grid-cols-3 gap-3 mb-5">
+        <div class="surface-3 border p-3">grid-cols-3</div>
+        <div class="surface-3 border p-3">grid-cols-3</div>
+        <div class="surface-3 border p-3">grid-cols-3</div>
+      </div>
+      <div class="u-grid grid-cols-2 gap-3 mb-5">
+        <div class="surface-4 border p-3">grid-cols-2</div>
+        <div class="surface-4 border p-3">grid-cols-2</div>
+      </div>
+      <div class="u-grid grid-cols-1 gap-3">
+        <div class="surface-1 border p-3">grid-cols-1</div>
+      </div>
+    </section>
+
+    <section class="panel p-6 mb-6">
+      <h2 class="text-xl mb-4">Spacing-utilities</h2>
+      <p class="text-muted">De reeks loopt van 0, 1, 2, 3, 4, 5, 6, 8, 10, 12 tot 16 en bestaat voor margin, padding en
+        gap, inclusief richtingsvarianten.</p>
+      <div class="flex flex-wrap items-end gap-3">
+        <div class="border p-0">p-0</div>
+        <div class="border p-1">p-1</div>
+        <div class="border p-2">p-2</div>
+        <div class="border p-3">p-3</div>
+        <div class="border p-4">p-4</div>
+        <div class="border p-5">p-5</div>
+        <div class="border p-6">p-6</div>
+        <div class="border p-8">p-8</div>
+      </div>
+      <div class="border mt-5 p-3">
+        <div class="surface-2 border m-0 p-2">m-0</div>
+        <div class="surface-2 border m-2 p-2">m-2</div>
+        <div class="surface-2 border m-4 p-2">m-4</div>
+        <div class="surface-2 border m-6 p-2">m-6</div>
+      </div>
+      <div class="flex gap-1 mt-5"><span class="badge">gap-1</span><span class="badge">A</span><span
+          class="badge">B</span></div>
+      <div class="flex gap-4 mt-3"><span class="badge">gap-4</span><span class="badge">A</span><span
+          class="badge">B</span></div>
+      <div class="flex gap-8 mt-3"><span class="badge">gap-8</span><span class="badge">A</span><span
+          class="badge">B</span></div>
+    </section>
+
+    <section class="panel p-6 mb-6">
+      <h2 class="text-xl mb-4">Sizing, radius en state</h2>
+      <div class="flex flex-wrap gap-4 items-center">
+        <div class="w-full border p-3">w-full</div>
+        <div class="w-auto border p-3">w-auto</div>
+        <div class="radius-0 border p-3">radius-0</div>
+        <div class="radius-1 border p-3">radius-1</div>
+        <div class="radius-2 border p-3">radius-2</div>
+        <button class="btn is-disabled" type="button">is-disabled</button>
+      </div>
+      <p class="mt-4 text-muted">De klasse <code class="font-mono">.hidden</code> is actief op de gesloten modal
+        hieronder; <code class="font-mono">.min-h-screen</code>, <code class="font-mono">.h-full</code>, <code
+          class="font-mono">.h-auto</code> en <code class="font-mono">.max-w-content</code> zijn eveneens beschikbaar.
+      </p>
+    </section>
+
+    <footer class="text-center text-soft py-8">Einde van de Valimo CSS-showcase</footer>
+  </main>
+
+  <div id="demo-modal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title"
+    onclick="if(event.target===this) closeModal()">
+    <div class="modal">
+      <div class="panel-header">
+        <h2 id="modal-title">Voorbeeldmodal</h2>
+        <button class="icon-btn" type="button" onclick="closeModal()" aria-label="Sluiten">×</button>
+      </div>
+      <p>Deze modal gebruikt uitsluitend de klassen <code class="font-mono">.modal-overlay</code>, <code
+          class="font-mono">.modal</code> en bestaande utilities.</p>
+      <div class="flex justify-end gap-3 mt-5"><button class="btn secondary"
+          onclick="closeModal()">Annuleren</button><button class="btn primary"
+          onclick="closeModal()">Bevestigen</button></div>
+    </div>
+  </div>
+
+  <div id="toast-container" aria-live="polite"></div>
+
+  <script>
+    const root = document.documentElement;
+    function setTheme(theme) { root.dataset.theme = theme; }
+    function setAccent(accent) { root.dataset.accent = accent; }
+    function openModal() { document.getElementById('demo-modal').classList.remove('hidden'); }
+    function closeModal() { document.getElementById('demo-modal').classList.add('hidden'); }
+    function showToast() {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      toast.className = 'toast status-danger';
+      toast.textContent = '✓ Dit is een Valimo-toast.';
+      container.appendChild(toast);
+      setTimeout(() => toast.remove(), 3000);
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="nl" data-theme="light" data-accent="green-vivid" data-valimo-theme="valimo-default">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Valimo Design System — Preview</title>
+  <link rel="stylesheet" href="valimo.css">
+  <style>
+    /* Alleen layout-hulpjes voor deze testpagina, geen overrides van de designsystem-stijlen */
+    .demo-wrap {
+      max-width: var(--content-max);
+      margin: 0 auto;
+      padding: var(--space-8);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-8);
+    }
+
+    .demo-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4);
+      flex-wrap: wrap;
+    }
+
+    .demo-controls {
+      display: flex;
+      gap: var(--space-2);
+      flex-wrap: wrap;
+    }
+
+    .demo-section {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+    }
+
+    .demo-section h2 {
+      font-size: var(--text-xl);
+    }
+
+    .demo-row {
+      display: flex;
+      gap: var(--space-3);
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .demo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: var(--space-4);
+    }
+
+    .demo-panel-pad {
+      padding: var(--space-6);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+    }
+
+    .demo-nav {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-1);
+      width: var(--sidebar-width);
+      max-width: 100%;
+    }
+
+    .demo-swatch {
+      height: 48px;
+      border-radius: var(--radius-2);
+      border: 1px solid var(--border);
+    }
+
+    .demo-label {
+      font-size: var(--text-sm);
+      color: var(--color-text-secondary);
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="demo-wrap">
+
+    <div class="demo-topbar">
+      <div>
+        <h1 style="font-size:var(--text-2xl)">Valimo Design System</h1>
+        <p class="demo-label">Live preview — wissel thema en accentkleur hieronder</p>
+      </div>
+      <div class="demo-controls">
+        <div class="demo-row">
+          <span class="demo-label">Thema:</span>
+          <button class="btn" onclick="document.documentElement.setAttribute('data-theme','light')">Light</button>
+          <button class="btn" onclick="document.documentElement.setAttribute('data-theme','dark')">Dark</button>
+        </div>
+        <div class="demo-row">
+          <span class="demo-label">Accent:</span>
+          <button class="btn" onclick="document.documentElement.setAttribute('data-accent','green')">Green</button>
+          <button class="btn" onclick="document.documentElement.setAttribute('data-accent','blue')">Blue</button>
+          <button class="btn" onclick="document.documentElement.setAttribute('data-accent','red')">Red</button>
+          <button class="btn" onclick="document.documentElement.setAttribute('data-accent','gold')">Gold</button>
+          <button class="btn" onclick="document.documentElement.setAttribute('data-accent','orange')">Orange</button>
+          <button class="btn" onclick="document.documentElement.setAttribute('data-accent','purple')">Purple</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Buttons -->
+    <div class="demo-section">
+      <h2>Buttons</h2>
+      <div class="demo-row">
+        <button class="btn">Default</button>
+        <button class="btn primary">Primary</button>
+        <button class="btn ghost">Ghost</button>
+        <button class="btn primary" disabled style="opacity:.5;cursor:not-allowed">Disabled</button>
+      </div>
+    </div>
+
+    <!-- Badges / Signals -->
+    <div class="demo-section">
+      <h2>Badges &amp; signals</h2>
+      <div class="demo-row">
+        <span class="badge">Default</span>
+        <span class="badge accent">Accent</span>
+        <span class="signal">Status</span>
+        <span class="signal accent">Live</span>
+      </div>
+    </div>
+
+    <!-- Panels / cards -->
+    <div class="demo-section">
+      <h2>Panels &amp; cards</h2>
+      <div class="demo-grid">
+        <div class="panel demo-panel-pad">
+          <span class="badge accent">Nieuw</span>
+          <h3 style="font-size:var(--text-lg)">Panel titel</h3>
+          <p class="demo-label">Korte beschrijving binnen een panel-component, met standaard tekstkleuren.</p>
+          <button class="btn primary">Actie</button>
+        </div>
+        <div class="card demo-panel-pad">
+          <h3 style="font-size:var(--text-lg)">Card titel</h3>
+          <p class="demo-label">Cards gebruiken dezelfde stijl als panels binnen dit systeem.</p>
+          <button class="btn">Bekijken</button>
+        </div>
+        <div class="block demo-panel-pad">
+          <h3 style="font-size:var(--text-lg)">Block titel</h3>
+          <p class="demo-label">Ook .block deelt de panel-styling.</p>
+          <button class="btn ghost">Ghost actie</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Form elements -->
+    <div class="demo-section">
+      <h2>Formulier</h2>
+      <div class="panel demo-panel-pad" style="max-width:480px">
+        <label class="demo-label" for="f-name">Naam</label>
+        <input id="f-name" type="text" placeholder="Typ hier je naam">
+        <label class="demo-label" for="f-msg">Bericht</label>
+        <textarea id="f-msg" rows="3" placeholder="Typ hier je bericht"></textarea>
+        <label class="demo-label" for="f-select">Keuze</label>
+        <select id="f-select">
+          <option>Optie 1</option>
+          <option>Optie 2</option>
+          <option>Optie 3</option>
+        </select>
+        <div class="demo-row">
+          <button class="btn primary">Versturen</button>
+          <button class="btn ghost">Annuleren</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Nav items -->
+    <div class="demo-section">
+      <h2>Navigatie</h2>
+      <div class="panel demo-panel-pad demo-nav">
+        <div class="nav-item active">Dashboard</div>
+        <div class="nav-item">Projecten</div>
+        <div class="nav-item">Instellingen</div>
+        <div class="nav-item">Help</div>
+      </div>
+    </div>
+
+    <!-- Table -->
+    <div class="demo-section">
+      <h2>Tabel</h2>
+      <div class="panel demo-panel-pad">
+        <table>
+          <thead>
+            <tr>
+              <th>Naam</th>
+              <th>Status</th>
+              <th>Rol</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Jan Jansen</td>
+              <td><span class="badge accent">Actief</span></td>
+              <td>Beheerder</td>
+            </tr>
+            <tr>
+              <td>Petra de Vries</td>
+              <td><span class="badge">Inactief</span></td>
+              <td>Gebruiker</td>
+            </tr>
+            <tr>
+              <td>Karim El Amrani</td>
+              <td><span class="badge accent">Actief</span></td>
+              <td>Editor</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Typography scale -->
+    <div class="demo-section">
+      <h2>Typografie</h2>
+      <div class="panel demo-panel-pad">
+        <h1 style="font-size:var(--text-2xl)">Heading 2xl / h1</h1>
+        <h2 style="font-size:var(--text-xl)">Heading xl / h2</h2>
+        <h3 style="font-size:var(--text-lg)">Heading lg / h3</h3>
+        <p style="font-size:var(--text-base)">Body tekst — text-base, standaard leesregel.</p>
+        <p style="font-size:var(--text-sm);color:var(--color-text-secondary)">Secundaire tekst — text-sm, gedempte
+          kleur.</p>
+        <p style="font-size:var(--text-xs);color:var(--color-text-soft)">Fijne tekst — text-xs, zachte kleur.</p>
+        <p style="font-family:var(--font-mono)">Monospace tekst — var(--font-mono)</p>
+      </div>
+    </div>
+
+    <!-- Accent swatches -->
+    <div class="demo-section">
+      <h2>Kleuren (huidig accent + surfaces)</h2>
+      <div class="demo-grid">
+        <div>
+          <div class="demo-swatch" style="background:var(--color-page)"></div>
+          <div class="demo-label">color-page</div>
+        </div>
+        <div>
+          <div class="demo-swatch" style="background:var(--color-panel)"></div>
+          <div class="demo-label">color-panel</div>
+        </div>
+        <div>
+          <div class="demo-swatch" style="background:var(--color-control)"></div>
+          <div class="demo-label">color-control</div>
+        </div>
+        <div>
+          <div class="demo-swatch" style="background:var(--color-nested)"></div>
+          <div class="demo-label">color-nested</div>
+        </div>
+        <div>
+          <div class="demo-swatch" style="background:var(--color-active-plane)"></div>
+          <div class="demo-label">color-active-plane</div>
+        </div>
+        <div>
+          <div class="demo-swatch" style="background:var(--color-action-primary)"></div>
+          <div class="demo-label">color-action-primary (accent)</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+
+</html>
