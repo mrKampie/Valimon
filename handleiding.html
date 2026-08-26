@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+
+<html lang="nl">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width,initial-scale=1" name="viewport" />
+  <title>Valimo Engine v4 — Handleiding</title>
+  <style>
+    :root {
+      --bg: #0b0c0a;
+      --panel: #121411;
+      --panel2: #171916;
+      --text: #e8e3d8;
+      --muted: #b1ab9f;
+      --soft: #7a756d;
+      --border: rgba(255, 255, 255, .08);
+      --border2: rgba(255, 255, 255, .14);
+      --accent: #5c7a63;
+      --accent2: #86a38b;
+      --ink: rgba(92, 122, 99, .14);
+      --warn: #b28a4b;
+      --danger: #b95f63;
+      --ok: #4f9b69;
+      --r: 2px;
+      --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Consolas, monospace;
+      --body: 'IBM Plex Sans', Inter, Arial, sans-serif;
+      --head: Inter, 'IBM Plex Sans', Arial, sans-serif
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    html {
+      scroll-behavior: smooth
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 15px/1.58 var(--body)
+    }
+
+    a {
+      color: inherit
+    }
+
+    code,
+    pre {
+      font-family: var(--mono)
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 285px minmax(0, 1fr);
+      min-height: 100vh
+    }
+
+    .side {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: auto;
+      background: var(--panel);
+      border-right: 1px solid var(--border);
+      padding: 20px
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 22px
+    }
+
+    .mark {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--border2);
+      color: var(--accent2);
+      font: 800 19px var(--head)
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      font-family: var(--head);
+      letter-spacing: -.025em;
+      margin: 0 0 .55em
+    }
+
+    h1 {
+      font-size: 34px
+    }
+
+    h2 {
+      font-size: 24px;
+      margin-top: 1.7em
+    }
+
+    h3 {
+      font-size: 18px;
+      margin-top: 1.4em
+    }
+
+    p {
+      margin: .55em 0 1em
+    }
+
+    .muted {
+      color: var(--muted)
+    }
+
+    .eyebrow {
+      color: var(--soft);
+      text-transform: uppercase;
+      letter-spacing: .16em;
+      font-size: 10px
+    }
+
+    .toc {
+      display: grid;
+      gap: 4px
+    }
+
+    .toc a {
+      text-decoration: none;
+      color: var(--muted);
+      padding: 7px 9px;
+      border: 1px solid transparent
+    }
+
+    .toc a:hover {
+      color: var(--text);
+      border-color: var(--border);
+      background: var(--ink)
+    }
+
+    .main {
+      padding: 28px;
+      max-width: 1180px;
+      width: 100%;
+      margin: 0 auto
+    }
+
+    .hero,
+    .card,
+    .note,
+    .warning {
+      border: 1px solid var(--border);
+      background: var(--panel);
+      padding: 20px;
+      border-radius: var(--r)
+    }
+
+    .hero {
+      margin-bottom: 20px
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px
+    }
+
+    .card h3 {
+      margin-top: 0
+    }
+
+    .note {
+      border-left: 3px solid var(--accent);
+      background: linear-gradient(90deg, var(--ink), var(--panel) 45%)
+    }
+
+    .warning {
+      border-left: 3px solid var(--warn);
+      background: rgba(178, 138, 75, .07)
+    }
+
+    .danger {
+      border-left-color: var(--danger);
+      background: rgba(185, 95, 99, .07)
+    }
+
+    .ok {
+      border-left-color: var(--ok);
+      background: rgba(79, 155, 105, .07)
+    }
+
+    pre {
+      white-space: pre-wrap;
+      overflow: auto;
+      background: #060706;
+      border: 1px solid var(--border);
+      padding: 14px;
+      font-size: 12px;
+      line-height: 1.55
+    }
+
+    .table-wrap {
+      overflow: auto;
+      border: 1px solid var(--border)
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--panel)
+    }
+
+    th,
+    td {
+      text-align: left;
+      vertical-align: top;
+      padding: 10px;
+      border-bottom: 1px solid var(--border)
+    }
+
+    th {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: .13em;
+      color: var(--soft)
+    }
+
+    tr:last-child td {
+      border-bottom: 0
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 2px 7px;
+      border: 1px solid var(--border2);
+      font: 10px var(--mono);
+      text-transform: uppercase
+    }
+
+    .steps {
+      counter-reset: step;
+      display: grid;
+      gap: 10px
+    }
+
+    .step {
+      counter-increment: step;
+      border: 1px solid var(--border);
+      background: var(--panel);
+      padding: 14px 14px 14px 48px;
+      position: relative
+    }
+
+    .step:before {
+      content: counter(step);
+      position: absolute;
+      left: 14px;
+      top: 14px;
+      width: 22px;
+      height: 22px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--accent);
+      color: var(--accent2);
+      font: 700 11px var(--mono)
+    }
+
+    .kbd {
+      font-family: var(--mono);
+      font-size: 12px;
+      padding: 2px 6px;
+      border: 1px solid var(--border2);
+      background: var(--panel2)
+    }
+
+    .small {
+      font-size: 12px;
+      color: var(--muted)
+    }
+
+    .footer {
+      margin-top: 40px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+      color: var(--soft)
+    }
+
+    @media(max-width:900px) {
+      .layout {
+        grid-template-columns: 1fr
+      }
+
+      .side {
+        position: relative;
+        height: auto
+      }
+
+      .grid {
+        grid-template-columns: 1fr
+      }
+
+      .main {
+        padding: 18px
+      }
+    }
+
+    @media print {
+      .side {
+        display: none
+      }
+
+      .layout {
+        display: block
+      }
+
+      .main {
+        max-width: none;
+        padding: 0
+      }
+
+      .card,
+      .hero,
+      .note,
+      .warning {
+        break-inside: avoid
+      }
+
+      body {
+        background: white;
+        color: #111
+      }
+
+      .card,
+      .hero,
+      .note,
+      .warning,
+      table {
+        background: white;
+        border-color: #bbb
+      }
+
+      pre {
+        background: #f4f4f4;
+        color: #111;
+        border-color: #bbb
+      }
+
+      .muted,
+      .small,
+      .eyebrow {
+        color: #555
+      }
+    }
+
+    .logo {
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      place-items: center;
+      border: 1px solid var(--engine-border);
+    }
+
+    .logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="layout">
+    <aside class="side">
+      <div class="brand">
+        <div class="logo">
+          <a href="/valimo/"><img src="valimo-logo.png" alt="Valimo"></a>
+        </div>
+        <div><strong>Valimo Engine v4</strong>
+          <div class="small">Gebruikershandleiding</div>
+        </div>
+      </div>
+      <nav class="toc">
+        <a href="#start">1. Snel starten</a><a href="#model">2. Systeemmodel</a><a href="#themes">3. Themes</a><a
+          href="#tokens">4. Tokens</a><a href="#components">5. Componenten</a><a href="#utilities">6. Utilities</a><a
+          href="#packs">7. Project packs</a><a href="#legacy">8. Project-CSS en review</a><a href="#import">9. CSS
+          importeren</a><a href="#export">10. Exportbestanden</a><a href="#use">11. CSS laden</a><a href="#migrate">12.
+          Oud project migreren</a><a href="#decide">13. Beslisregels</a><a href="#limits">14. Beperkingen v4-final</a><a
+          href="#checklist">15. Checklists</a>
+      </nav>
+    </aside>
+    <main class="main">
+      <section class="hero" id="start">
+        <div class="eyebrow">Valimo design-system core</div>
+        <h1>Handleiding Valimo Engine v4</h1>
+        <p class="muted">Voor het beheren van themes, modes, accents, theme-overrides, componenten, utilities, project
+          packs, oude project-CSS, imports en downloadbare exports.</p>
+        <div class="note ok"><strong>Aanbevolen standaard:</strong> gebruik in nieuwe projecten <code>valimo.css</code>
+          plus alleen de project pack- of projectlaag die werkelijk nodig is.</div>
+      </section>
+      <section>
+        <h2>1. Snel starten</h2>
+        <div class="steps">
+          <div class="step"><strong>Kies of maak een theme.</strong><br />Een theme koppelt een mode en accent en kan
+            eigen tokens, componentoverrides en project packs bevatten.</div>
+          <div class="step"><strong>Controleer de preview.</strong><br />Test dark/light, accent, buttons, surfaces,
+            borders, tekst en inputs.</div>
+          <div class="step"><strong>Download de algemene build.</strong><br />Gebruik voor de meeste projecten
+            <code>valimo.css</code>.
+          </div>
+          <div class="step"><strong>Voeg projectspecifieke CSS apart toe.</strong><br />Gebruik een project pack voor
+            beheerde modules; gebruik de oude Project-CSS/reviewflow voor migratie van bestaande stylesheets.</div>
+        </div>
+        <pre>&lt;html lang="nl"
+      data-theme="dark"
+      data-accent="green"
+      data-valimo-theme="valimo-default"&gt;
+&lt;head&gt;
+  &lt;link rel="stylesheet" href="/css/valimo.css"&gt;
+  &lt;link rel="stylesheet" href="/css/project-pack-dashboard.css"&gt;
+&lt;/head&gt;</pre>
+      </section>
+      <section id="model">
+        <h2>2. Systeemmodel</h2>
+        <div class="grid">
+          <div class="card">
+            <h3>Globale systeemlagen</h3>
+            <p><strong>Core</strong> bevat foundations, semantische aliases en globale regels.</p>
+            <p><strong>Themes</strong> bevat modes en accents.</p>
+            <p><strong>Components</strong> bevat algemene Valimo-componenten.</p>
+            <p><strong>Utilities</strong> bevat compacte <code>u-*</code>-classes.</p>
+          </div>
+          <div class="card">
+            <h3>Themecontext en projecten</h3>
+            <p><strong>Theme tokens</strong> overschrijven tokens binnen één <code>data-valimo-theme</code>.</p>
+            <p><strong>Theme components</strong> voegen componentregels toe binnen dat theme.</p>
+            <p><strong>Project packs</strong> groeperen site- of module-CSS.</p>
+            <p><strong>Project-CSS</strong> bewaart en reviewt oude complete stylesheets.</p>
+          </div>
+        </div>
+        <pre>Database
+  → geselecteerd theme
+  → core + mode + accent
+  → theme token overrides
+  → globale + themecomponenten
+  → utilities
+  → gekoppelde project packs / gereviewde project-CSS</pre>
+      </section>
+      <section id="themes">
+        <h2>3. Themes gebruiken</h2>
+        <p>Een theme is het centrale record. Het bevat minimaal een naam, slug, mode, accent en status. Daarnaast kan
+          het eigen tokens, componentoverrides en gekoppelde project packs hebben.</p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Status</th>
+                <th>Gebruik</th>
+                <th>Exportgedrag</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="tag">draft</span></td>
+                <td>In ontwikkeling of test.</td>
+                <td>Wordt in v4-final nog in de theme-export vermeld zolang het niet archived is.</td>
+              </tr>
+              <tr>
+                <td><span class="tag">active</span></td>
+                <td>Klaar voor productie.</td>
+                <td>Wordt geëxporteerd.</td>
+              </tr>
+              <tr>
+                <td><span class="tag">archived</span></td>
+                <td>Bewaren, maar niet meer gebruiken.</td>
+                <td>Wordt niet in de theme-recordlijst van de CSS-export opgenomen.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <h3>Theme selecteren</h3>
+        <p>Kies een theme in de linker themelijst. De engine laadt daarna de theme tokens, themecomponenten en
+          gekoppelde packs voor dat record.</p>
+        <h3>Theme dupliceren</h3>
+        <p>Dupliceren kopieert de themebasis, theme tokens, themecomponenten en koppelingen naar project packs. De kopie
+          wordt als nieuwe variant gebruikt; controleer daarna altijd naam, slug, status, mode en accent.</p>
+        <div class="warning"><strong>Belangrijk:</strong> het CSS-record <code>[data-valimo-theme="..."]</code> zet de
+          mode en accent niet automatisch op het DOM-element. Gebruik voorlopig alle drie attributen expliciet:
+          <code>data-theme</code>, <code>data-accent</code> en <code>data-valimo-theme</code>.
+        </div>
+      </section>
+      <section id="tokens">
+        <h2>4. Tokens</h2>
+        <h3>Foundation tokens</h3>
+        <p>Gebruik foundations voor ruwe, systeemwijde waarden: spacing, tekstgroottes, fonts, radius, transitions,
+          control sizes en z-index.</p>
+        <pre>--space-4: 16px;
+--radius-1: 2px;
+--font-body: 'IBM Plex Sans', sans-serif;
+--transition-fast: .2s var(--ease-standard);</pre>
+        <h3>Semantische tokens</h3>
+        <p>Gebruik semantische aliases voor functies in plaats van losse kleurwaarden.</p>
+        <pre>--color-page: var(--bg);
+--color-panel: var(--surface-1);
+--color-control: var(--surface-2);
+--color-action-primary: var(--accent);
+--color-focus: var(--accent-line);</pre>
+        <h3>Theme tokens</h3>
+        <p>Theme tokens gelden alleen wanneer het betreffende <code>data-valimo-theme</code> actief is. Gebruik deze
+          voor kleine afwijkingen van een sterk gedeelde basis.</p>
+        <pre>[data-valimo-theme="portal-blue"] {
+  --content-max: 1240px;
+  --radius-1: 0px;
+  --color-panel: var(--surface-2);
+}</pre>
+        <div class="note"><strong>Richtlijn:</strong> wijzig een foundation wanneer alle projecten mee moeten
+          veranderen. Gebruik een theme token wanneer alleen één theme of projectfamilie afwijkt.</div>
+      </section>
+      <section id="components">
+        <h2>5. Componenten</h2>
+        <p>Globale componenten zijn herbruikbare Valimo-UI-regels, zoals buttons, panels, inputs, nav-items, badges,
+          modals, toasts en tabellen.</p>
+        <pre>.btn {
+  display: inline-flex;
+  gap: var(--space-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-1);
+  background: var(--color-control);
+}</pre>
+        <h3>Themecomponenten</h3>
+        <p>Een themecomponent wordt in de export gescoped onder het geselecteerde theme. Gebruik deze alleen als een
+          component binnen één theme werkelijk ander gedrag nodig heeft.</p>
+        <pre>[data-valimo-theme="operator"] .toolbar {
+  min-height: 42px;
+  grid-template-columns: 1fr auto;
+}</pre>
+        <div class="warning"><strong>Vermijd:</strong> een themecomponent voor elk klein kleurverschil. Gebruik daarvoor
+          tokens. Componentoverrides zijn bedoeld voor structureel of functioneel verschil.</div>
+      </section>
+      <section id="utilities">
+        <h2>6. Utility layer</h2>
+        <p>Utilities voeren één kleine taak uit en gebruiken het verplichte <code>u-</code>-prefix. Hierdoor botsen ze
+          minder snel met oude projecten.</p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Categorie</th>
+                <th>Voorbeelden</th>
+                <th>Doel</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Spacing</td>
+                <td><code>u-p-4</code>, <code>u-px-3</code>, <code>u-gap-2</code>, <code>u-m-4</code></td>
+                <td>Padding, margin en gap uit de spacingtokens.</td>
+              </tr>
+              <tr>
+                <td>Text</td>
+                <td><code>u-text-sm</code>, <code>u-text-muted</code>, <code>u-text-soft</code></td>
+                <td>Tekstgrootte of semantische tekstkleur.</td>
+              </tr>
+              <tr>
+                <td>Surface</td>
+                <td><code>u-surface-1</code>, <code>u-surface-2</code></td>
+                <td>Neutrale Valimo-oppervlakken.</td>
+              </tr>
+              <tr>
+                <td>Border/radius</td>
+                <td><code>u-border</code>, <code>u-border-strong</code>, <code>u-radius-1</code></td>
+                <td>Functionele randen en bijna scherpe hoeken.</td>
+              </tr>
+              <tr>
+                <td>Layout</td>
+                <td><code>u-flex</code>, <code>u-grid</code>, <code>u-stack</code>, <code>u-inline</code>,
+                  <code>u-center</code>
+                </td>
+                <td>Kleine composities.</td>
+              </tr>
+              <tr>
+                <td>State</td>
+                <td><code>u-active</code>, <code>u-disabled</code>, <code>u-accent</code></td>
+                <td>Semantische actieve of uitgeschakelde toestand.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <pre>&lt;div class="u-flex u-items-center u-justify-between u-gap-3 u-p-4 u-surface-2 u-border u-radius-1"&gt;
+  ...
+&lt;/div&gt;</pre>
+        <p>Maak geen utility voor een compleet domeincomponent. Een selector als <code>.epg-program-row</code> hoort in
+          een project pack.</p>
+      </section>
+      <section id="packs">
+        <h2>7. Project packs</h2>
+        <p>Een project pack is de aanbevolen beheerlaag voor site- of modulefunctionaliteit die niet in de Valimo-core
+          hoort.</p>
+        <h3>Goede packs</h3>
+        <ul>
+          <li>EPG of videoplayer</li>
+          <li>Voetbalveld en spelerskaarten</li>
+          <li>Dashboardmodule</li>
+          <li>Admin-tabellen</li>
+          <li>Specifieke marketing- of portal-layout</li>
+        </ul>
+        <h3>Werkwijze</h3>
+        <div class="steps">
+          <div class="step">Maak een pack met herkenbare slug en naam.</div>
+          <div class="step">Voeg regels toe met een unieke rule key, selector, CSS-block en sort order.</div>
+          <div class="step">Koppel het pack aan één of meer themes.</div>
+          <div class="step">Laad de gegenereerde pack-CSS na de algemene Valimo-build.</div>
+        </div>
+        <pre>&lt;link rel="stylesheet" href="valimo.css"&gt;
+&lt;link rel="stylesheet" href="project-pack-epg.css"&gt;</pre>
+        <div class="note"><strong>Architectuurregel:</strong> een project pack mag de Valimo-core aanvullen, maar moet
+          niet opnieuw fonts, standaardbuttons, algemene inputs of globale surfaces definiëren.</div>
+      </section>
+      <section id="legacy">
+        <h2>8. Oude Project-CSS en handmatige review</h2>
+        <p>Project-CSS is bedoeld voor complete oude stylesheets die je nog niet hebt opgesplitst. De engine kan het
+          origineel bewaren, vergelijken met de Valimo-basis en een review-export genereren.</p>
+        <h3>Reviewkeuzes</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Keuze</th>
+                <th>Effect</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Valimo behouden</td>
+                <td>De botsende projectdeclaration wordt niet in de gereviewde projectexport opgenomen.</td>
+              </tr>
+              <tr>
+                <td>Project behouden</td>
+                <td>De projectdeclaration blijft als bewuste override staan.</td>
+              </tr>
+              <tr>
+                <td>Projectproperty verwijderen</td>
+                <td>De property wordt uit de projectexport verwijderd.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>De vergelijking werkt op exacte selector- en propertycombinaties. Een unieke projectproperty blijft staan.
+        </p>
+        <pre>Valimo:  .btn { padding: 11px 14px; border-radius: var(--radius-1); }
+Project: .btn { padding: 20px; border-radius: 20px; min-width: 180px; }
+
+Na keuze “Valimo behouden”:
+.btn { min-width: 180px; }</pre>
+        <div class="warning"><strong>Niet automatisch gedekt:</strong> specificiteit, inheritance, shorthand versus
+          longhand, custom properties, runtime classes en selectors die semantisch gelijk zijn maar anders geschreven.
+        </div>
+      </section>
+      <section id="import">
+        <h2>9. CSS importeren</h2>
+        <p>De slimme import analyseert een CSS-block en zet regels eerst in staging. De parser herkent custom
+          properties, theme selectors, utility-achtige selectors, algemene componenten en projectregels.</p>
+        <h3>Importflow</h3>
+        <div class="steps">
+          <div class="step">Geef de import een naam en plak CSS.</div>
+          <div class="step">De engine slaat gevonden custom properties als geïmporteerde foundation tokens op.</div>
+          <div class="step">Gevonden regels verschijnen in Import staging.</div>
+          <div class="step">Kies per regel component, utility of project.</div>
+          <div class="step">Controleer de nieuwe laag en exporteer pas daarna opnieuw.</div>
+        </div>
+        <h3>Classificatie</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Detectie</th>
+                <th>Voorbeelden</th>
+                <th>Aanbevolen bestemming</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Theme</td>
+                <td><code>:root</code>, <code>[data-theme]</code>, <code>[data-accent]</code></td>
+                <td>Controleer tokens handmatig; modes en accents worden niet volledig automatisch opgebouwd.</td>
+              </tr>
+              <tr>
+                <td>Utility</td>
+                <td><code>.p-4</code>, <code>.gap-2</code>, <code>.surface-2</code></td>
+                <td>Utilitylaag; hernoem bij voorkeur naar <code>u-*</code>.</td>
+              </tr>
+              <tr>
+                <td>Component</td>
+                <td><code>.toolbar</code>, <code>.empty-state</code>, <code>.data-table</code></td>
+                <td>Globale component als deze voor meerdere projecten geldt.</td>
+              </tr>
+              <tr>
+                <td>Project</td>
+                <td>ID-selectors, player, pitch, EPG, timeline, market, admin</td>
+                <td>Project-CSS of een handmatig opgebouwd project pack.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="warning"><strong>Belangrijk:</strong> acceptatie naar “project” maakt in v4-final een legacy
+          Project-CSS-record aan, niet automatisch een project pack. Voor nette nieuwe modules maak je daarna zelf een
+          pack.</div>
+      </section>
+      <section id="export">
+        <h2>10. Exportbestanden</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Bestand</th>
+                <th>Inhoud</th>
+                <th>Wanneer gebruiken?</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>valimo.css</code></td>
+                <td>Samengestelde algemene build voor het gekozen theme: core, themes, theme tokens, components en
+                  utilities.</td>
+                <td>Standaardkeuze voor de meeste projecten.</td>
+              </tr>
+              <tr>
+                <td><code>valimo-core.css</code></td>
+                <td>Foundations, semantic tokens en globale core-regels.</td>
+                <td>Modulaire build.</td>
+              </tr>
+              <tr>
+                <td><code>valimo-themes.css</code></td>
+                <td>Modes, accents en administratieve theme selectors.</td>
+                <td>Na core laden.</td>
+              </tr>
+              <tr>
+                <td><code>valimo.tokens.css</code></td>
+                <td>Themegebonden tokenoverrides van het geselecteerde theme.</td>
+                <td>Na themes laden; direct downloadbaar.</td>
+              </tr>
+              <tr>
+                <td><code>valimo-components.css</code></td>
+                <td>Globale componenten en, bij theme-download, themecomponentoverrides.</td>
+                <td>Na tokens laden.</td>
+              </tr>
+              <tr>
+                <td><code>valimo-utilities.css</code></td>
+                <td><code>u-*</code>-utilities.</td>
+                <td>Na components laden.</td>
+              </tr>
+              <tr>
+                <td><code>valimo-tokens.json</code></td>
+                <td>Tokens en systeemmetadata voor tooling of JavaScript.</td>
+                <td>Niet als stylesheet laden.</td>
+              </tr>
+              <tr>
+                <td><code>valimo-project-*.css</code></td>
+                <td>Gereviewde legacy project-CSS.</td>
+                <td>Als laatste laden.</td>
+              </tr>
+              <tr>
+                <td>Project pack CSS</td>
+                <td>Beheerde site- of modulelaag.</td>
+                <td>Als laatste laden, na Valimo.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <h3>Direct downloaden versus volledige export</h3>
+        <p><strong>Direct downloaden</strong> genereert de gekozen inhoud direct uit SQLite. <strong>Genereer volledige
+            export</strong> schrijft bestanden naar de map van het PHP-script en registreert ze in de exporttabel. De
+          map moet schrijfrechten hebben.</p>
+        <div class="warning danger"><strong>Bekende v4-final inconsistentie:</strong> <code>valimo.tokens.css</code> is
+          direct downloadbaar, maar wordt niet door de knop “Genereer volledige export” naar de servermap geschreven.
+          Download deze laag handmatig wanneer je de modulaire bestandsset gebruikt.</div>
+      </section>
+      <section id="use">
+        <h2>11. Wanneer welk CSS-bestand laden?</h2>
+        <h3>Optie A — aanbevolen, complete build</h3>
+        <pre>&lt;link rel="stylesheet" href="/css/valimo.css"&gt;
+&lt;link rel="stylesheet" href="/css/project-pack-dashboard.css"&gt;</pre>
+        <p>Gebruik dit voor vrijwel alle normale projecten.</p>
+        <h3>Optie B — modulaire build</h3>
+        <pre>&lt;link rel="stylesheet" href="/css/valimo-core.css"&gt;
+&lt;link rel="stylesheet" href="/css/valimo-themes.css"&gt;
+&lt;link rel="stylesheet" href="/css/valimo.tokens.css"&gt;
+&lt;link rel="stylesheet" href="/css/valimo-components.css"&gt;
+&lt;link rel="stylesheet" href="/css/valimo-utilities.css"&gt;
+&lt;link rel="stylesheet" href="/css/project-pack-dashboard.css"&gt;</pre>
+        <p>Gebruik dit wanneer je losse caching, bundling of laagcontrole nodig hebt.</p>
+        <div class="warning"><strong>Niet doen:</strong> laad niet tegelijk <code>valimo.css</code> én alle losse
+          algemene lagen. Dan laad je dezelfde regels dubbel.</div>
+      </section>
+      <section id="migrate">
+        <h2>12. Een oud project migreren</h2>
+        <div class="steps">
+          <div class="step"><strong>Maak een back-up</strong> van de oude stylesheet en HTML.</div>
+          <div class="step"><strong>Kies een Valimo-theme</strong> en laad eerst alleen <code>valimo.css</code>.</div>
+          <div class="step"><strong>Upload de oude CSS als Project-CSS</strong> en open Vergelijken.</div>
+          <div class="step"><strong>Laat Valimo winnen</strong> bij globale buttons, inputs, typography, surfaces,
+            borders en radius.</div>
+          <div class="step"><strong>Behoud projectspecifieke functionaliteit</strong> zoals grids, player, EPG, veld,
+            specifieke IDs en JS-hooks.</div>
+          <div class="step"><strong>Splits stabiele modules uit</strong> naar project packs.</div>
+          <div class="step"><strong>Vervang kleine layoutregels</strong> door <code>u-*</code>-utilities waar dat de
+            HTML duidelijker maakt.</div>
+          <div class="step"><strong>Test states en responsive gedrag</strong> en download daarna de review-export.</div>
+        </div>
+        <h3>Praktisch migratievoorbeeld</h3>
+        <pre>Oude CSS:
+.btn { border-radius:18px; background:#334; padding:16px 24px; }
+.epg-row { display:grid; grid-template-columns:160px 1fr; min-height:60px; }
+
+Beslissing:
+.btn      → Valimo behouden
+.epg-row  → behouden en later naar project pack “epg” verplaatsen</pre>
+      </section>
+      <section id="decide">
+        <h2>13. Waar hoort een regel?</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Vraag</th>
+                <th>Ja</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Is dit een ruwe waarde die overal geldt?</td>
+                <td>Foundation token</td>
+              </tr>
+              <tr>
+                <td>Beschrijft het een functionele rol?</td>
+                <td>Semantic token</td>
+              </tr>
+              <tr>
+                <td>Verandert het neutrale canvas tussen dark en light?</td>
+                <td>Mode</td>
+              </tr>
+              <tr>
+                <td>Is het de betekenisvolle signaalkleur?</td>
+                <td>Accent</td>
+              </tr>
+              <tr>
+                <td>Wijkt slechts één theme af?</td>
+                <td>Theme token of themecomponent</td>
+              </tr>
+              <tr>
+                <td>Is het een herbruikbaar UI-element voor meerdere sites?</td>
+                <td>Component</td>
+              </tr>
+              <tr>
+                <td>Doet het precies één kleine layout- of stijlfunctie?</td>
+                <td><code>u-*</code> utility</td>
+              </tr>
+              <tr>
+                <td>Is het een beheerde site- of modulefunctie?</td>
+                <td>Project pack</td>
+              </tr>
+              <tr>
+                <td>Is het nog een grote oude stylesheet?</td>
+                <td>Project-CSS + review</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+      <section id="limits">
+        <h2>14. Feitelijke beperkingen van v4-final</h2>
+        <div class="warning">
+          <ul>
+            <li><code>data-valimo-theme</code> activeert niet automatisch de gekoppelde mode en accent.</li>
+            <li>De parser is geen volledige browserwaardige CSS-parser.</li>
+            <li>Import van theme blocks maakt modes en accents niet automatisch volledig aan.</li>
+            <li>Import naar project maakt legacy Project-CSS, niet automatisch een project pack.</li>
+            <li>De CSS-review vergelijkt exacte selectors en properties; indirecte cascadeconflicten blijven handwerk.
+            </li>
+            <li><code>valimo.tokens.css</code> ontbreekt in de serverbrede volledige export, maar is wel direct
+              downloadbaar.</li>
+            <li>Project pack-download en documentatie kunnen afhankelijk zijn van hoe je de gegenereerde pack-output uit
+              de admin haalt; controleer de exportpagina na het koppelen.</li>
+            <li>Wijzigingen aan gedownloade bestanden lopen niet automatisch mee: opnieuw downloaden of exporteren is
+              nodig.</li>
+          </ul>
+        </div>
+      </section>
+      <section id="checklist">
+        <h2>15. Checklists</h2>
+        <h3>Nieuw project</h3>
+        <ul>
+          <li>Theme gekozen of aangemaakt</li>
+          <li>Mode en accent gecontroleerd</li>
+          <li><code>data-theme</code>, <code>data-accent</code> en <code>data-valimo-theme</code> ingesteld</li>
+          <li><code>valimo.css</code> geladen</li>
+          <li>Alleen noodzakelijke project pack(s) erna geladen</li>
+          <li>Dark/light en focus getest</li>
+          <li>Geen oude globale CSS onder Valimo geladen</li>
+        </ul>
+        <h3>Na een systeemwijziging</h3>
+        <ul>
+          <li>Preview gecontroleerd</li>
+          <li>Themeoverrides gecontroleerd</li>
+          <li>CSS opnieuw gedownload/geëxporteerd</li>
+          <li>Project packs opnieuw getest</li>
+          <li>JSON opnieuw gedownload wanneer tooling dit gebruikt</li>
+        </ul>
+        <h3>Voor productie</h3>
+        <ul>
+          <li>Theme status active</li>
+          <li>Geen onbedoelde draftvariant in gebruik</li>
+          <li>Project-CSS-review afgerond</li>
+          <li>Geen dubbele algemene build geladen</li>
+          <li>Responsive, hover, focus, disabled en modal/toast getest</li>
+        </ul>
+      </section>
+      <div class="footer">Valimo Engine v4 — handleiding gebaseerd op de huidige v4-final implementatie. Dit document
+        beschrijft ook bekende beperkingen, zodat de werkwijze overeenkomt met de code.</div>
+      <section id="migration_analyzer">
+        <h2>16. Migratie met Valimo Migration Analyzer</h2>
+        <p>Gebruik de Valimo Migration Analyzer om bestaande HTML-, PHP-, CSS- en JavaScriptprojecten te analyseren
+          voordat je ze omzet naar Valimo. De analyzer inventariseert classes, selectors, JavaScript-afhankelijkheden en
+          mogelijke migraties.</p>
+        <ul>
+          <li>Maak een nieuw analyseproject aan.</li>
+          <li>Upload HTML-, PHP-, CSS- en JavaScriptbestanden.</li>
+          <li>Upload daarnaast de actuele valimo.css als referentie.</li>
+          <li>Controleer Class Analysis, CSS Conflicts en het migratierapport.</li>
+          <li>Maak aliasregels zoals tab-btn → btn.</li>
+          <li>Kies per class: Replace, Compatibility, Project Pack, Review of Ignore.</li>
+          <li>Genereer een Compatibility PHP-bestand voor bestaande projecten.</li>
+          <li>Pas daarna pas de echte HTML en CSS aan.</li>
+        </ul>
+        <pre>Legacy class
+      ↓
+Alias register
+      ↓
+Canonical Valimo class
+      ↓
+Compatibility PHP + Review export
+      ↓
+Definitieve migratie</pre>
+        <div class="note">Aanbevolen werkwijze: gebruik de compatibilitylaag tijdelijk zodat oude projecten blijven
+          werken, vervang daarna stap voor stap de legacy classes in HTML en verwijder de aliases pas wanneer ze nergens
+          meer worden gebruikt.</div>
+      </section>
+    </main>
+  </div>
+</body>
+
+</html>
